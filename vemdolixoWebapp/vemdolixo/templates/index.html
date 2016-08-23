@@ -155,25 +155,26 @@
                 <div><img src="https://s3-sa-east-1.amazonaws.com/residoando/logo-white-solo-01.png"></div>
                 <h1>VAMOS FALAR DOS NOSSOS RESÍDUOS?</h1>  
 
-                <form action="#">
+                <form action="{% url 'new_search' %}" autocomplete="on" id="new-search-form" method="post">
+                  {% csrf_token %}
                   <div class="mdl-grid">
                     <div class="mdl-cell mdl-cell--3-col"></div>
                     <div class="mdl-cell mdl-cell--3-col mdl-cell--2-col-phone">
 
                         <div class="mdl-textfield mdl-js-textfield">
-                          <input class="mdl-textfield__input" type="text" id="sample1">
+                          <input class="mdl-textfield__input" id="residue_type" type="text" name="residue_type">
                           <label class="mdl-textfield__label" for="sample1">O que você precisa descartar?</label>
                         </div>
                     </div>
 
                     <div class="mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
                         <div class="mdl-textfield mdl-js-textfield">
-                          <input class="mdl-textfield__input" type="text" id="sample1">
+                          <input class="mdl-textfield__input" type="text" id="user_cep" type="text" name="user_cep">
                           <label class="mdl-textfield__label" for="sample1">Seu CEP</label>
                         </div>
                     </div>
                     <div class="mdl-cell mdl-cell--1-col mdl-cell--1-col-phone">
-                      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored submit" href="#modal-donate" data-toggle="modal">
+                      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored submit" type="submit" name="action">
                         Buscar
                       </button>
                     </div>

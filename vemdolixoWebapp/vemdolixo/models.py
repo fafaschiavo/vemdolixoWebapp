@@ -20,13 +20,14 @@ class generic_register(models.Model):
 
 class company(models.Model):
 	organization_name = models.CharField(max_length=200)
-	organization_type = models.CharField(max_length=200)
-	phone = models.CharField(max_length=200)
-	email = models.CharField(max_length=200)
-	city = models.CharField(max_length=200)
-	state = models.CharField(max_length=200)
-	neighborhood = models.CharField(max_length=200)
-	adress = models.CharField(max_length=200)
+	organization_type = models.CharField(max_length=200, default='')
+	phone = models.CharField(max_length=200, default='')
+	email = models.CharField(max_length=200, default='')
+	city = models.CharField(max_length=200, default='')
+	state = models.CharField(max_length=200, default='')
+	neighborhood = models.CharField(max_length=200, default='')
+	address = models.CharField(max_length=200, default='')
+	website = models.CharField(max_length=200, default='')
 	cnpj = models.CharField(max_length=200)
 	latitude = models.DecimalField(max_digits=9, decimal_places=7)
 	longitude = models.DecimalField(max_digits=9, decimal_places=7)
@@ -55,8 +56,11 @@ class company(models.Model):
 	def __neighborhood__(self):
 		return self.neighborhood
 
-	def __adress__(self):
-		return self.adress
+	def __address__(self):
+		return self.address
+
+	def __website__(self):
+		return self.website
 
 	def __cnpj__(self):
 		return self.cnpj

@@ -1,0 +1,253 @@
+{% extends "generic-page.html" %}
+
+
+{% block style %}
+<style type="text/css">
+    .mdl-shadow--2dp{
+      width: 100%;
+      height: 20vh;
+      margin-bottom: 20px;
+    }
+    .page .title-page span{
+      color: #b3b3b3
+    }
+    .mdl-card__title{
+      padding-bottom: 0px;
+      padding-top: 1vh;
+    }
+    .mdl-card__title-text{
+      font-size: 20px;
+    }
+    .mdl-card__supporting-text{
+      padding-right: 0px;
+      margin-right: 0px;
+      width: 100%;
+      font-size: 0.9rem;
+    }
+    .mdl-card__supporting-text div{
+      word-break: break-all;
+      margin-bottom: 2px;
+    }
+</style>
+{% endblock %}
+
+
+
+{% block content %}
+<div class="container">
+
+  <!-- title page -->
+  <div class="header-spacing title-page clearfix">
+    <span class="page-first-title">Resultados da busca</span>
+  <!--                 <h2>
+      Nosso Time 
+    </h2> -->
+  <!--                 <div class="devider-top"></div> -->
+    <div style="height: 30px;"></div>
+    <div class="devider-bottom-title"></div>
+  </div><!-- end title page -->
+
+  <!-- team -->
+  <div class="row" id="info-container">
+    <div class="col-md-5 col-sm-4 side-section side-section-left">
+
+
+      <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--7-col">
+            <div class="mdl-card__title">
+              <h2 class="mdl-card__title-text">{{ name1 }}</h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+              <div><i class="fa fa-phone" aria-hidden="true"></i> - {{ tel1 }}</div>
+              <div><i class="fa fa-map-marker" aria-hidden="true"></i> - {{ address1 }}</div>
+              <div style="font-size: 0.84rem;"><i class="fa fa-envelope" aria-hidden="true"></i> - {{ email1 }}</div>
+              <div style="font-size: 0.84rem;"><i class="fa fa-globe" aria-hidden="true"></i> - <a href="">{{ site1 }}</a></div>
+            </div>
+          </div>
+          <div class="mdl-cell mdl-cell--5-col">
+            <img src="https://s3-sa-east-1.amazonaws.com/residoando/sample.jpg" style="max-width: 100%;">
+          </div>
+        </div>
+        <div class="mdl-card__menu">
+          <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+            <i class="material-icons">share</i>
+          </button>
+        </div>
+      </div>
+
+      <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--7-col">
+            <div class="mdl-card__title">
+              <h2 class="mdl-card__title-text">{{ name2 }}</h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+              <div><i class="fa fa-phone" aria-hidden="true"></i> - {{ tel2 }}</div>
+              <div><i class="fa fa-map-marker" aria-hidden="true"></i> - {{ address2 }}</div>
+              <div style="font-size: 0.84rem;"><i class="fa fa-envelope" aria-hidden="true"></i> - {{ email2 }}</div>
+              <div style="font-size: 0.84rem;"><i class="fa fa-globe" aria-hidden="true"></i> - <a href="">{{ site2 }}</a></div>
+            </div>
+          </div>
+          <div class="mdl-cell mdl-cell--5-col">
+            <img src="https://s3-sa-east-1.amazonaws.com/residoando/sample.jpg" style="max-width: 100%;">
+          </div>
+        </div>
+        <div class="mdl-card__menu">
+          <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+            <i class="material-icons">share</i>
+          </button>
+        </div>
+      </div>
+
+      <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--7-col">
+            <div class="mdl-card__title">
+              <h2 class="mdl-card__title-text">{{ name3 }}</h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+              <div><i class="fa fa-phone" aria-hidden="true"></i> - {{ tel3 }}</div>
+              <div><i class="fa fa-map-marker" aria-hidden="true"></i> - {{ address3 }}</div>
+              <div style="font-size: 0.84rem;"><i class="fa fa-envelope" aria-hidden="true"></i> - {{ email3 }}</div>
+              <div style="font-size: 0.84rem;"><i class="fa fa-globe" aria-hidden="true"></i> - <a href="">{{ site3 }}</a></div>
+            </div>
+          </div>
+          <div class="mdl-cell mdl-cell--5-col">
+            <img src="https://s3-sa-east-1.amazonaws.com/residoando/sample.jpg" style="max-width: 100%;">
+          </div>
+        </div>
+        <div class="mdl-card__menu">
+          <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+            <i class="material-icons">share</i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-md-7 col-sm-4 side-section side-section-right">
+      <div id="map-result" style="width: 100%; height: 72vh;"></div>
+    </div>
+  </div><!-- end team -->
+
+  <div class="white-space-20"></div>
+</div>
+{% endblock %}
+
+
+{% block script %}
+
+<script type="text/javascript">
+  var content_height = $("#info-container").height();
+  var section_height = $("#main-content").height();
+    if (content_height > section_height) {
+      content_height = content_height + 200
+      section_height = $("#main-content").height(content_height + 'px');
+    }
+</script>
+
+<script>
+  function initMap() {
+    var myLatLng = {lat: {{ lat_original }}, lng: {{ lon_original }}};
+
+      var styleArray = [
+        {
+          featureType: 'all',
+          stylers: [
+            { saturation: -50 }
+          ]
+        },{
+          featureType: 'road.arterial',
+          elementType: 'geometry',
+          stylers: [
+            { hue: '#00ffee' },
+            { saturation: 50 }
+          ]
+        },{
+          featureType: 'poi.business',
+          elementType: 'labels',
+          stylers: [
+            { visibility: 'off' }
+          ]
+        }
+      ];
+
+    // Create a map object and specify the DOM element for display.
+    var map = new google.maps.Map(document.getElementById('map-result'), {
+      center: myLatLng,
+      scrollwheel: true,
+      zoom: 10,
+      styles: styleArray
+    });
+
+    // Create a marker and set its position.
+    var marker = new google.maps.Marker({
+      map: map,
+      position: myLatLng,
+      title: 'Meu local',
+    });
+
+    // marker 1 + info window 1 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< 
+
+    var contentString1 = '<strong> {{ name1 }} </strong> <br> <div> {{ address1 }} </div> <div> {{ tel1 }} </div>';
+
+    var infowindow1 = new google.maps.InfoWindow({
+      content: contentString1
+    });
+
+    var marker1 = new google.maps.Marker({
+      map: map,
+      position: {lat: {{ lat1 }}, lng: {{ lon1 }}},
+      title: '{{ name1 }}',
+      icon: 'https://s3-sa-east-1.amazonaws.com/residoando/icon-1.png'
+    });
+
+    marker1.addListener('click', function() {
+      infowindow1.open(map, marker1);
+    });
+
+    // marker 2 + info window 2 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< 
+
+    var contentString2 = '<strong> {{ name2 }} </strong> <br> <div> {{ address2 }} </div> <div> {{ tel2 }} </div>';
+
+    var infowindow2 = new google.maps.InfoWindow({
+      content: contentString2
+    });
+
+    var marker2 = new google.maps.Marker({
+      map: map,
+      position: {lat: {{ lat2 }}, lng: {{ lon2 }}},
+      title: '{{ name2 }}',
+      icon: 'https://s3-sa-east-1.amazonaws.com/residoando/icon-1.png'
+    });
+
+    marker2.addListener('click', function() {
+      infowindow2.open(map, marker2);
+    });
+
+    // marker 3 + info window 3 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< 
+
+    var contentString3 = '<strong> {{ name3 }} </strong> <br> <div> {{ address3 }} </div> <div> {{ tel3 }} </div>';
+
+    var infowindow3 = new google.maps.InfoWindow({
+      content: contentString3
+    });
+
+    var marker3 = new google.maps.Marker({
+      map: map,
+      position: {lat: {{ lat3 }}, lng: {{ lon3 }}},
+      title: '{{ name3 }}',
+      icon: 'https://s3-sa-east-1.amazonaws.com/residoando/icon-1.png'
+    });
+
+    marker3.addListener('click', function() {
+      infowindow3.open(map, marker3);
+    });
+
+  }
+
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhx18jDGJ7H-ywCkTk_3c29u9uOgEzFi8&callback=initMap" async defer></script>
+
+{% endblock %}
