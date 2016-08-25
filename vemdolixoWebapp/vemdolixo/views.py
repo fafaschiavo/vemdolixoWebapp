@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.conf import settings
 from vemdolixo.models import generic_register, company, residue, receptivity, member, search_history
 from django.http import HttpResponse
+from difflib import SequenceMatcher
 import json
 import googlemaps
 from datetime import datetime
@@ -19,6 +20,40 @@ def calculate_distance(lat1, lon1, lat2, lon2):
 	distance_lon = (lon1 - lon2) ** 2
 	distance = (distance_lat + distance_lon) ** (0.5)
 	return distance
+
+def rank_string_similarity_with_residues_type(string_to_test):
+	residues = residue.objects.all()
+	match_array = {}
+	for residue_type in residues:
+		result = SequenceMatcher(None, string_to_test, residue_type.residue_name).ratio()
+		match_array[result] = residue_type
+
+	score_array = sorted(match_array, reverse=True)
+	
+	result_array = {}
+	index = 0
+	for score in score_array:
+		result_array[index] = match_array[score]
+		index = index + 1
+
+	return result_array
+
+def best_match_with_residues_type(string_to_test):
+	residues = residue.objects.all()
+	match_array = {}
+	for residue_type in residues:
+		result = SequenceMatcher(None, string_to_test, residue_type.residue_name).ratio()
+		match_array[result] = residue_type
+
+	score_array = sorted(match_array, reverse=True)
+	
+	result_array = {}
+	index = 0
+	for score in score_array:
+		result_array[index] = match_array[score]
+		index = index + 1
+
+	return result_array[0]
 
 # Create your views here.
 
@@ -60,11 +95,24 @@ def new_search(request):
 	site3 = ''
 
 	user_cep = request.POST['user_cep']
-	cep = re.sub('[^0-9]','', user_cep)
 	gmaps = googlemaps.Client(key=settings.GOOGLE_API_KEY)
-	geocode_result = gmaps.geocode(cep)
-	lat_user = geocode_result[0]['geometry']['location']['lat']
-	lon_user = geocode_result[0]['geometry']['location']['lng']
+	geocode_result = gmaps.geocode(user_cep)
+
+	if len(geocode_result) >= 1:
+		lat_user = geocode_result[0]['geometry']['location']['lat']
+		lon_user = geocode_result[0]['geometry']['location']['lng']
+	elif len(user_cep) == 8:
+		formated_cep = user_cep[:5] + '-' + user_cep[5:]
+		geocode_result = gmaps.geocode(formated_cep)
+		if len(geocode_result) >= 1:
+			lat_user = geocode_result[0]['geometry']['location']['lat']
+			lon_user = geocode_result[0]['geometry']['location']['lng']
+		else:
+			context = {}
+			return render(request, 'location-not-found.html', context)
+	else:
+		context = {}
+		return render(request, 'location-not-found.html', context)
 
 	companies = company.objects.all()
 	distance_array = {}
@@ -72,10 +120,11 @@ def new_search(request):
 		distance = calculate_distance(lat_user, lon_user, company_item.latitude, company_item.longitude)
 		distance_array[distance] = company_item
 
-	try:
-		residues = residue.objects.get(residue_name = request.POST['residue_type'])
-		receptivities = receptivity.objects.filter(residue_id = residues.id)
+	residue_best_match = best_match_with_residues_type(request.POST['residue_type'])
 
+	try:
+		residues = residue.objects.get(residue_name = residue_best_match.residue_name)
+		receptivities = receptivity.objects.filter(residue_id = residues.id)
 		for distance in sorted(distance_array):
 			flag = 0
 			for match in receptivities:
