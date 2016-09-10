@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
+import sys
 from django.shortcuts import render
 from django.conf import settings
-from vemdolixo.models import generic_register, company, residue, receptivity, member, search_history
+from vemdolixo.models import generic_register, company, residue, receptivity, members, search_history
 from django.http import HttpResponse
 from difflib import SequenceMatcher
 import json
@@ -11,6 +13,20 @@ import decimal
 
 # Create your procedures here.
 
+def convert_characters(string_to_convert):
+	reload(sys)
+	sys.setdefaultencoding('UTF8')
+	converted_string = string_to_convert
+	converted_string = converted_string.replace("Ã§", "ç")
+	converted_string = converted_string.replace("Ã£", "ã")
+	converted_string = converted_string.replace("Ã¡", "á")
+	converted_string = converted_string.replace("Ã©", "é")
+	converted_string = converted_string.replace("Ãº", "ú")
+	converted_string = converted_string.replace("Ã³", "ó")
+	converted_string = converted_string.replace("Ã´", "ô")
+	converted_string = converted_string.replace("Ã", "í")
+	return converted_string
+
 def calculate_distance(lat1, lon1, lat2, lon2):
 	lat1 = float(lat1)
 	lat2 = float(lat2)
@@ -20,6 +36,12 @@ def calculate_distance(lat1, lon1, lat2, lon2):
 	distance_lon = (lon1 - lon2) ** 2
 	distance = (distance_lat + distance_lon) ** (0.5)
 	return distance
+
+def verify_http_url(url):
+	new_url = url
+	if "http://" not in url: 
+		new_url = "http://" + url
+	return new_url
 
 def rank_string_similarity_with_residues_type(string_to_test):
 	residues = residue.objects.all()
@@ -58,8 +80,15 @@ def best_match_with_residues_type(string_to_test):
 # Create your views here.
 
 def index(request):
-    context = {}
-    return render(request, 'index.html', context)
+	residues = residue.objects.all()
+	autocomplete_residue = ''
+	for residue_type in residues:
+		autocomplete_residue = autocomplete_residue + "'" + convert_characters(residue_type.residue_name) + "',"
+
+	context = {
+		'autocomplete_residue': autocomplete_residue,
+	}
+	return render(request, 'index.html', context)
 
 def generic_register_create(request):
 	first_name_lower = request.POST['first_name']
@@ -98,6 +127,7 @@ def new_search(request):
 	gmaps = googlemaps.Client(key=settings.GOOGLE_API_KEY)
 	geocode_result = gmaps.geocode(user_cep)
 
+
 	if len(geocode_result) >= 1:
 		lat_user = geocode_result[0]['geometry']['location']['lat']
 		lon_user = geocode_result[0]['geometry']['location']['lng']
@@ -111,6 +141,14 @@ def new_search(request):
 			context = {}
 			return render(request, 'location-not-found.html', context)
 	else:
+		context = {}
+		return render(request, 'location-not-found.html', context)
+
+	is_brazil = False
+	for information_set in geocode_result[0]['address_components']:
+		if information_set['long_name'] == 'Brazil':
+			is_brazil = True
+	if is_brazil == False:
 		context = {}
 		return render(request, 'location-not-found.html', context)
 
@@ -139,11 +177,16 @@ def new_search(request):
 	result = {}
 	for distance in sorted(distance_array):
 		result[index] = distance_array[distance]
+		if len(result[index].website) < 5:
+			result[index].website = "www.vemdolixo.com"
 		index = index + 1
 
-	name1 = result[1].organization_name
-	name2 = result[2].organization_name
-	name3 = result[3].organization_name
+	add_history = search_history(text = request.POST['residue_type'], latitude = lat_user, longitude = lon_user)
+	add_history.save()
+
+	name1 = convert_characters(result[1].organization_name)
+	name2 = convert_characters(result[2].organization_name)
+	name3 = convert_characters(result[3].organization_name)
 
 	email1 = result[1].email
 	email2 = result[2].email
@@ -153,9 +196,13 @@ def new_search(request):
 	tel2 = result[2].phone
 	tel3 = result[3].phone
 
-	address1 = result[1].address
-	address2 = result[2].address
-	address3 = result[3].address
+	address1 = convert_characters(result[1].address)
+	address2 = convert_characters(result[2].address)
+	address3 = convert_characters(result[3].address)
+
+	site1_url = verify_http_url(result[1].website)
+	site2_url = verify_http_url(result[2].website)
+	site3_url = verify_http_url(result[3].website)
 
 	site1 = result[1].website
 	site2 = result[2].website
@@ -187,6 +234,9 @@ def new_search(request):
 		'site1': site1,
 		'site2': site2,
 		'site3': site3,
+		'site1_url': site1_url,
+		'site2_url': site2_url,
+		'site3_url': site3_url,
 		'lat_original': lat_original,
 		'lat1': lat1,
 		'lat2': lat2,
@@ -195,6 +245,5 @@ def new_search(request):
 		'lon1': lon1,
 		'lon2': lon2,
 		'lon3': lon3,
-
 	}
 	return render(request, 'result-page.html', context)

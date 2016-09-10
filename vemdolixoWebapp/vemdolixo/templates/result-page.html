@@ -27,6 +27,14 @@
       word-break: break-all;
       margin-bottom: 2px;
     }
+    @media (max-width: 600px) {
+      .company-logo{
+        display: none;
+      }
+      .page-first-title{
+        font-size: 24px !important;
+      }
+   }
 </style>
 {% endblock %}
 
@@ -61,17 +69,19 @@
               <div><i class="fa fa-phone" aria-hidden="true"></i> - {{ tel1 }}</div>
               <div><i class="fa fa-map-marker" aria-hidden="true"></i> - {{ address1 }}</div>
               <div style="font-size: 0.84rem;"><i class="fa fa-envelope" aria-hidden="true"></i> - {{ email1 }}</div>
-              <div style="font-size: 0.84rem;"><i class="fa fa-globe" aria-hidden="true"></i> - <a href="">{{ site1 }}</a></div>
+              <div style="font-size: 0.84rem;"><i class="fa fa-globe" aria-hidden="true"></i> - <a href="{{ site1_url }}" target="_blank" id="website-1">{{ site1 }}</a></div>
             </div>
           </div>
           <div class="mdl-cell mdl-cell--5-col">
-            <img src="https://s3-sa-east-1.amazonaws.com/residoando/sample.jpg" style="max-width: 100%;">
+            <img src="https://s3-sa-east-1.amazonaws.com/residoando/sample.jpg" style="max-width: 100%;" class="company-logo">
           </div>
         </div>
         <div class="mdl-card__menu">
-          <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-            <i class="material-icons">share</i>
-          </button>
+          <a href="https://www.facebook.com/sharer/sharer.php?u={{ site1_url }}" target="_blank">
+            <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+              <i class="material-icons">share</i>
+            </button>
+          </a>
         </div>
       </div>
 
@@ -85,17 +95,19 @@
               <div><i class="fa fa-phone" aria-hidden="true"></i> - {{ tel2 }}</div>
               <div><i class="fa fa-map-marker" aria-hidden="true"></i> - {{ address2 }}</div>
               <div style="font-size: 0.84rem;"><i class="fa fa-envelope" aria-hidden="true"></i> - {{ email2 }}</div>
-              <div style="font-size: 0.84rem;"><i class="fa fa-globe" aria-hidden="true"></i> - <a href="">{{ site2 }}</a></div>
+              <div style="font-size: 0.84rem;"><i class="fa fa-globe" aria-hidden="true"></i> - <a href="{{ site2_url }}" target="_blank" id="website-2">{{ site2 }}</a></div>
             </div>
           </div>
           <div class="mdl-cell mdl-cell--5-col">
-            <img src="https://s3-sa-east-1.amazonaws.com/residoando/sample.jpg" style="max-width: 100%;">
+            <img src="https://s3-sa-east-1.amazonaws.com/residoando/sample.jpg" style="max-width: 100%;" class="company-logo">
           </div>
         </div>
         <div class="mdl-card__menu">
-          <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-            <i class="material-icons">share</i>
-          </button>
+          <a href="https://www.facebook.com/sharer/sharer.php?u={{ site2_url }}" target="_blank">
+            <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+              <i class="material-icons">share</i>
+            </button>
+          </a>
         </div>
       </div>
 
@@ -109,17 +121,19 @@
               <div><i class="fa fa-phone" aria-hidden="true"></i> - {{ tel3 }}</div>
               <div><i class="fa fa-map-marker" aria-hidden="true"></i> - {{ address3 }}</div>
               <div style="font-size: 0.84rem;"><i class="fa fa-envelope" aria-hidden="true"></i> - {{ email3 }}</div>
-              <div style="font-size: 0.84rem;"><i class="fa fa-globe" aria-hidden="true"></i> - <a href="">{{ site3 }}</a></div>
+              <div style="font-size: 0.84rem;"><i class="fa fa-globe" aria-hidden="true"></i> - <a href="{{ site3_url }}" target="_blank" id="website-3">{{ site3 }}</a></div>
             </div>
           </div>
           <div class="mdl-cell mdl-cell--5-col">
-            <img src="https://s3-sa-east-1.amazonaws.com/residoando/sample.jpg" style="max-width: 100%;">
+            <img src="https://s3-sa-east-1.amazonaws.com/residoando/sample.jpg" style="max-width: 100%;" class="company-logo">
           </div>
         </div>
         <div class="mdl-card__menu">
-          <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-            <i class="material-icons">share</i>
-          </button>
+          <a href="https://www.facebook.com/sharer/sharer.php?u={{ site3_url }}" target="_blank">
+            <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+              <i class="material-icons">share</i>
+            </button>
+          </a>
         </div>
       </div>
 
@@ -148,6 +162,10 @@
 <script>
   function initMap() {
     var myLatLng = {lat: {{ lat_original }}, lng: {{ lon_original }}};
+    var bounds = new google.maps.LatLngBounds();
+
+    loc = new google.maps.LatLng("{{ lat_original }}","{{ lon_original }}");
+    bounds.extend(loc);
 
       var styleArray = [
         {
@@ -173,9 +191,7 @@
 
     // Create a map object and specify the DOM element for display.
     var map = new google.maps.Map(document.getElementById('map-result'), {
-      center: myLatLng,
       scrollwheel: true,
-      zoom: 10,
       styles: styleArray
     });
 
@@ -189,6 +205,9 @@
     // marker 1 + info window 1 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< 
 
     var contentString1 = '<strong> {{ name1 }} </strong> <br> <div> {{ address1 }} </div> <div> {{ tel1 }} </div>';
+
+    loc = new google.maps.LatLng("{{ lat1 }}","{{ lon1 }}");
+    bounds.extend(loc);
 
     var infowindow1 = new google.maps.InfoWindow({
       content: contentString1
@@ -209,6 +228,9 @@
 
     var contentString2 = '<strong> {{ name2 }} </strong> <br> <div> {{ address2 }} </div> <div> {{ tel2 }} </div>';
 
+    loc = new google.maps.LatLng("{{ lat2 }}","{{ lon2 }}");
+    bounds.extend(loc);
+
     var infowindow2 = new google.maps.InfoWindow({
       content: contentString2
     });
@@ -228,6 +250,9 @@
 
     var contentString3 = '<strong> {{ name3 }} </strong> <br> <div> {{ address3 }} </div> <div> {{ tel3 }} </div>';
 
+    loc = new google.maps.LatLng("{{ lat3 }}","{{ lon3 }}");
+    bounds.extend(loc);
+
     var infowindow3 = new google.maps.InfoWindow({
       content: contentString3
     });
@@ -243,6 +268,9 @@
       infowindow3.open(map, marker3);
     });
 
+    map.fitBounds(bounds);
+    map.panToBounds(bounds);
+
   }
 
 </script>
@@ -250,3 +278,45 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhx18jDGJ7H-ywCkTk_3c29u9uOgEzFi8&callback=initMap" async defer></script>
 
 {% endblock %}
+
+
+
+
+<script>
+var map;
+var markersArray = [];
+var image = 'img/';
+var bounds = new google.maps.LatLngBounds();
+var loc;
+
+function init(){
+    var mapOptions = { mapTypeId: google.maps.MapTypeId.ROADMAP };
+    map =  new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+
+    loc = new google.maps.LatLng("45.478294","9.123949");
+    bounds.extend(loc);
+    addMarker(loc, 'Event A', "active");
+
+    loc = new google.maps.LatLng("50.83417876788752","4.298325777053833");
+    bounds.extend(loc);
+    addMarker(loc, 'Event B', "active");
+
+    loc = new google.maps.LatLng("41.3887035","2.1807378");
+    bounds.extend(loc);
+    addMarker(loc, 'Event C', "active");
+
+    map.fitBounds(bounds);
+    map.panToBounds(bounds);    
+}
+
+function addMarker(location, name, active) {          
+    var marker = new google.maps.Marker({
+        position: location,
+        map: map,
+        title: name,
+        status: active
+    });
+}
+
+$(function(){ init(); });
+</script>

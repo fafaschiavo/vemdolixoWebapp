@@ -1,8 +1,89 @@
 from __future__ import unicode_literals
-
+from datetime import datetime
 from django.db import models
 
 # Create your models here.
+class members(models.Model):
+	first_name = models.CharField(max_length=200)
+	last_name = models.CharField(max_length=200)
+	email = models.CharField(max_length=200)
+	phone = models.CharField(max_length=200)
+	created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
+	newsletter_accepted_at = models.DateTimeField(auto_now=False, auto_now_add=True)
+	push_accepted_at = models.DateTimeField(auto_now=False, auto_now_add=True)
+	birthdate = models.DateTimeField(default=datetime.now)
+	hash_id = models.CharField(max_length=200, default=None)
+	username = models.CharField(max_length=200, default=None)
+	email_activated = models.IntegerField(default=0)
+	phone_activated = models.IntegerField(default=0)
+	facebook_profile = models.CharField(max_length=400, default='')
+	admin_level = models.IntegerField(default=0)
+	profile_picture = models.CharField(max_length=400, default='https://s3-sa-east-1.amazonaws.com/residoando/user.svg')
+
+	def __first_name__(self):
+		return self.first_name
+
+	def __last_name__(self):
+		return self.last_name
+
+	def __email__(self):
+		return self.email
+
+	def __phone__(self):
+		return self.phone
+
+	def __created_at__(self):
+		return self.created_at
+
+	def __newsletter_accepted_at__(self):
+		return self.newsletter_accepted_at
+
+	def __push_accepted_at__(self):
+		return self.push_accepted_at
+
+	def __birthdate__(self):
+		return self.birthdate
+
+	def __hash_id__(self):
+		return self.hash_id
+
+	def __username__(self):
+		return self.username
+
+	def __email_activated__(self):
+		return self.email_activated
+
+	def __phone_activated__(self):
+		return self.phone_activated
+
+	def __facebook_profile__(self):
+		return self.facebook_profile
+
+	def __admin_level__(self):
+		return self.admin_level
+
+class admin_codes(models.Model):
+	code_hash = models.CharField(max_length=200, default=None)
+	is_used = models.IntegerField(default=0)
+	admin_level = models.IntegerField(default=2)
+	created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
+	edited_at = models.DateTimeField(auto_now=True)
+
+	def __code_hash__(self):
+		return self.code_hash
+
+	def __is_used__(self):
+		return self.is_used
+
+	def __admin_level__(self):
+		return self.admin_level
+
+	def __created_at__(self):
+		return self.created_at
+
+	def __edited_at__(self):
+		return self.edited_at
+
 class generic_register(models.Model):
 	first_name = models.CharField(max_length=200)
 	last_name = models.CharField(max_length=200)
@@ -112,28 +193,6 @@ class receptivity(models.Model):
 
 	def __is_active__(self):
 		return self.is_active
-
-	def __created_at__(self):
-		return self.created_at
-
-class member(models.Model):
-	email = models.CharField(max_length=200)
-	first_name = models.CharField(max_length=200)
-	last_name = models.CharField(max_length=200)
-	phone = models.CharField(max_length=200)
-	created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
-
-	def __first_name__(self):
-		return self.first_name
-
-	def __last_name__(self):
-		return self.last_name
-
-	def __email__(self):
-		return self.email
-
-	def __phone__(self):
-		return self.phone
 
 	def __created_at__(self):
 		return self.created_at
