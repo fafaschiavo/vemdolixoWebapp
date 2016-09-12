@@ -27,20 +27,108 @@
       word-break: break-all;
       margin-bottom: 2px;
     }
+    .mdl-dialog{
+      width: 450px;
+    }
+    .mdl-dialog__title{
+      font-size: 20px;
+    }
+    .mdl-dialog{
+      padding: 0px;
+    }
+    .mdl-dialog__title{
+      background: #323a45;
+      color: #fff;
+      padding-top: 16px;
+      padding-bottom: 16px;
+      text-align: center;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    .dialog-explanation{
+      text-align: center;
+    }
+    .dialog-cancel{
+      text-align: center;
+      margin-top: 10px;
+    }
+    .dialog-input{
+      background-color: #e3e8ee;
+      padding: 5px;
+    }
+    .mdl-textfield__input{
+      height: 38px;
+    }
+    .mdl-button--raised.mdl-button--colored{
+      background: #9bc43e;
+      margin-top: 0px;
+      color: #fff;
+    }
+    .close{
+      float: none;
+    }
+    .firefox-dialog{
+      width: 400px;
+      margin: 4vw auto auto;
+      margin-top: 4vw;
+      position: absolute;
+      top: 10%;
+      left: 33%;
+      z-index: 100;
+      background: #fff;
+      box-shadow: 0 9px 46px 8px rgba(0,0,0,.14),0 11px 15px -7px rgba(0,0,0,.12),0 24px 38px 3px rgba(0,0,0,.2);
+    }
     @media (max-width: 600px) {
+      .firefox-dialog{
+        width: 82%;
+        top: 3.4%;
+        left: 8%;
+      }
       .company-logo{
         display: none;
       }
       .page-first-title{
         font-size: 24px !important;
       }
+      .mdl-dialog{
+        width: 90%;
+      }
+      .mdl-button--raised.mdl-button--colored{
+        font-size: 0.9rem
+      }
    }
 </style>
 {% endblock %}
 
 
-
 {% block content %}
+
+<dialog class="mdl-dialog">
+  <div class="" id="firefox-dialog-div">
+    <h4 class="mdl-dialog__title">ENCONTRAMOS!</h4>
+    <div class="mdl-dialog__content">
+      <p class="dialog-explanation">
+        Para acessar as informações digite seu email:
+      </p>
+
+      <!-- Simple Textfield -->
+      <form action="{% url 'simple_register_create' %}" style="width: 70%; margin: auto;" method="post" id="register-form">
+        {% csrf_token %}
+        <div class="mdl-textfield mdl-js-textfield">
+          <input class="mdl-textfield__input dialog-input" type="email" name="contact_email" id="contact_email" placeholder="Email...">
+        </div>
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="submit" id="submit-generic-registration">
+          Enviar
+        </button>
+        <div class="dialog-cancel">
+          <button type="button" class="mdl-button close">Cancelar</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</dialog>
+
 <div class="container">
 
   <!-- title page -->
@@ -277,11 +365,6 @@
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhx18jDGJ7H-ywCkTk_3c29u9uOgEzFi8&callback=initMap" async defer></script>
 
-{% endblock %}
-
-
-
-
 <script>
 var map;
 var markersArray = [];
@@ -320,3 +403,56 @@ function addMarker(location, name, active) {
 
 $(function(){ init(); });
 </script>
+
+<script src="http://malsup.github.com/jquery.form.js"></script>
+
+<script type="text/javascript">
+  if (typeof HTMLDialogElement === 'function') {
+    $(".container").css("filter", "blur(7px)");
+
+    var dialog = document.querySelector('dialog');
+    var showDialogButton = document.querySelector('#show-dialog');
+    if (! dialog.showModal) {
+      dialogPolyfill.registerDialog(dialog);
+    }
+
+    dialog.showModal();
+
+    dialog.querySelector('.close').addEventListener('click', function() {
+      $(".container").css("filter", "blur(0px)")
+      dialog.close();
+    });
+
+    // bind 'myForm' and provide a simple callback function 
+    $('#register-form').ajaxForm(function() { 
+        var dialog = document.querySelector('dialog');
+        $(".container").css("filter", "blur(0px)")
+        dialog.close();
+    }); 
+} else {
+  $(".container").css("filter", "blur(7px)");
+  $("#firefox-dialog-div").addClass("firefox-dialog");
+  document.getElementById("submit-generic-registration").disabled = true;
+
+  $('#contact_email').on('input', function() { 
+      var email = $("#contact_email").val();
+
+      if (email.length > 4 && email.indexOf('@') !== -1 && email.indexOf('.') !== -1) {
+        document.getElementById("submit-generic-registration").disabled = false;
+      }else{
+        document.getElementById("submit-generic-registration").disabled = true;
+      }
+  });
+
+  $(".close").click(function(){
+      $(".container").css("filter", "blur(0px)");
+      $("dialog").css("display", "none");
+  });
+
+  $('#register-form').ajaxForm(function() { 
+    $(".container").css("filter", "blur(0px)");
+    $("dialog").css("display", "none");
+  });
+}
+</script>
+{% endblock %}

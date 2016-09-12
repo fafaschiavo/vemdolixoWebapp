@@ -90,6 +90,18 @@ def index(request):
 	}
 	return render(request, 'index.html', context)
 
+def simple_register_create(request):
+	first_name_lower = ''
+	last_name_lower = ''
+	contact_email_lower = request.POST['contact_email']
+	contact_email_lower = contact_email_lower.lower()
+	try:
+		new_reg = generic_register(first_name = first_name_lower, last_name = last_name_lower, email = contact_email_lower)
+		new_reg.save()
+		return HttpResponse(200)
+	except:
+		return HttpResponse(400)
+
 def generic_register_create(request):
 	first_name_lower = request.POST['first_name']
 	first_name_lower =first_name_lower.lower()
