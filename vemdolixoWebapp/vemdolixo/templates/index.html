@@ -20,7 +20,6 @@
     <!-- Template style -->
     <link href="https://s3-sa-east-1.amazonaws.com/residoando/assets/theme/css/style.css" rel="stylesheet" type="text/css">    
     <!-- Your style -->
-    <link href="https://s3-sa-east-1.amazonaws.com/residoando/assets/theme/css/theme-custom.css" rel="stylesheet">
     <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
     <link rel="shortcut icon" type="image/png" href="https://s3-sa-east-1.amazonaws.com/residoando/icon-1.png"/>
     <!-- page loader -->
@@ -144,6 +143,21 @@
     .form-desk{
       display: inline;
     }
+    .btn1.btn-form{
+      padding-top: 5px;
+    }
+    .site-description .padd-donate{
+      padding: 0px;
+    }
+    .text-right{
+      padding-top: 16px;
+    }
+    .padd-donate{
+      margin-right: 15px;
+    }
+    a{
+      color: #fff;
+    }
     @media (max-width: 600px) {
       .input-mobile{
         text-align: center;
@@ -213,11 +227,10 @@
             
             <div class="content-header">
               <div class="mid-content-header">
-                <div><img src="https://s3-sa-east-1.amazonaws.com/residoando/logo-white-solo-01.png"></div>
+                <div><img src="https://s3-sa-east-1.amazonaws.com/residoando/logo-white-solo-01.png" style="max-width: 90%;"></div>
                 <h1 class="main-title">VAMOS FALAR DOS NOSSOS RESÍDUOS?</h1>
 
                 <form action="{% url 'new_search' %}" autocomplete="on" id="new-search-form" method="post" class="form-desk">
-                  {% csrf_token %}
                   <div class="mdl-grid">
                     <div class="mdl-cell mdl-cell--2-col cell-phone-custom"></div>
                     <div class="mdl-cell mdl-cell--3-col cell-phone-custom">
@@ -247,7 +260,6 @@
                 </form>
 
                 <form action="{% url 'new_search' %}" autocomplete="on" id="new-search-form" method="post" class="form-mobile">
-                  {% csrf_token %}
                   <div class="mdl-grid">
                     <div class="mdl-cell mdl-cell--3-col cell-phone-custom">
 
@@ -261,11 +273,8 @@
                           <input class="mdl-textfield__input input-mobile" type="text" id="user_cep" type="text" name="user_cep" placeholder="Seu CEP ou endereço">
                         </div>
                     </div>
-                    <div class="mdl-cell mdl-cell--2-col cell-phone-custom">
-                      <span onclick="getLocation()" style="width: 20% !important; padding: 0px; width: 10%; min-width: 0px; margin-right: 3%; margin-top: 0px;" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored submit" title="Usar meu local">
-                        <i class="fa fa-map-pin" aria-hidden="true"></i>
-                      </span>  
-                      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored submit" type="submit" name="action" id="submit_form" style="width: 77%; margin-top: 0px;">
+                    <div class="mdl-cell mdl-cell--2-col cell-phone-custom"> 
+                      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored submit" type="submit" name="action" id="submit_form" style="width: 60%; margin-top: 0px; float: inherit; margin: auto;">
                         Buscar
                       </button>
                     </div>
@@ -275,7 +284,9 @@
 
                 <div>
                   <a href="#about-us"  class="inner-link link-white" >
-                    <p class="text-uppercase">Saiba mais</p> 
+                    <a href="{% url 'about' %}">
+                      <p class="text-uppercase">Saiba mais</p>
+                    </a> 
                     <span class="circle"><i class="fa fa-angle-down"></i></span>
                   </a> 
                 </div>
@@ -286,12 +297,18 @@
           <!-- bottom header -->
           <div class="site-description f_bottom" id="site-description">
             <div class="row">
-              <div class="col-sm-10">
+              <div class="col-sm-6">
                 <a href="/" class="logo white"><img style="height: 70px;" class="logo-with-slogan" src="https://s3-sa-east-1.amazonaws.com/residoando/logo-white-site-svg.svg" alt=""></a>
                 <a href="/" class="logo black"><img style="height: 70px;" class="logo-with-slogan" src="https://s3-sa-east-1.amazonaws.com/residoando/logo-black-site-svg.svg" alt=""></a>
               </div>
-              <div class="col-sm-2 hidden-sm hidden-xs text-right">
-                <div class="padd-donate">
+              <div class="col-sm-6 hidden-sm hidden-xs text-right">
+                <div class="padd-donate" style="float: right;">
+                  <a  href="{% url 'about' %}" class="btn btn1 submit">Quem somos</a>
+                </div>
+                <div class="padd-donate" style="float: right;">
+                  <a  href="/blog" class="btn btn1 submit">Conheça o Blog</a>
+                </div>
+                <div class="padd-donate" style="float: right;">
                   <a  href="#modal-donate" data-toggle="modal" class="btn btn1 submit">Fique por dentro</a>
                 </div>
               </div>
@@ -309,157 +326,6 @@
       </header><!-- end Header -->
       <!-- main body content -->
       <div class="main-body">
-
-
-        <!-- about-us section -->
-        <section id="about-us" class="page">
-
-          <!-- page content -->
-          <div class="page-content" >
-            <div class="container" >
-
-              <!-- title page -->
-              <div class="title-page clearfix" >
-                <span class="title-mobile">O que é VemDoLixo?</span>
-                <!-- <h2>Quem somos nós?</h2> -->
-                <!-- <div class="devider-top"></div> -->
-                <div style="height: 50px;"></div>
-                <i class="fa fa-arrow-circle-down"></i>
-                <p class="text-center" >Nós representamos o interesse da sociedade <br/>pelo desenvolvimento sustentavel.</p>
-                <div class="devider-bottom"></div>
-              </div><!-- end title page -->
-
-              <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                  <div class="row">
-                    <div class="col-md-3">
-                      <h3 class="title-page-2"><span>Visão Geral</span></h3>
-                    </div>
-                    <div class="col-md-9">
-                    <p>O projeto VemDoLixo foi criado para revolucionar o descarte de resíduos sólidos. </p>
-                    <p>Com a promulgação da Política Nacional dos Resíduos Sólidos (PNRS) em 2010, todos nós nos tornamos responsáveis pela correta destinação dos resíduos que produzimos. Isso fez aumentar o interesse no assunto e fomentar iniciativas dentro do tema voltadas a redução da geração, a reciclagem de materiais e a economia circular. </p>
-                    <p>O VemDoLixo visa unificar informações sobre os múltiplos atores que fazem parte da cadeia dos resíduos. VemDoLixo pretende fornecer informações sobre as entidades que estão legalizadas para realizar a destinação, como local, tipos de resíduo que trabalha e preços praticados. Desta maneira acreditamos que podemos contribuir para que nenhum resíduo deixe de ser destinado corretamente por falta de informação.</p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-3">
-                      <h3 class="title-page-2"><span>Ideais</span></h3>
-                    </div>
-                    <div class="col-md-9">
-                      <p>
-                        Ser a plataforma que consolida o maior volume de informações sobre empresas, entidades, ONGs e cooperativas que participam no descarte de resíduos sólidos, de maneira que tais informações sejam dispostas à toda sociedade, de forma simples, prática e acessível.                 
-                      </p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-3">
-                      <h3 class="title-page-2"><span>Origem</span></h3>
-                    </div>
-                    <div class="col-md-9">
-                      <p>O VemDoLixo surgiu com seus fundadores vendo o descarte incorreto de lixo eletrônico ao redor de nossas residências, e movidos pelo pensamento de que se não podemos fazer a diferença ao nosso redor, não podemos reclamar de como está o mundo. </p>
-                      <p>Com a indignação do descarte incorreto e a necessidade de promover o empoderamento social, trabalhando para que as cooperativas e catadores de recicláveis ganhem visibilidade, reconhecimento e recursos financeiros, surgiu o VemDoLixo.</p>
-                    </div>
-                  </div>
-
-                  <div class="white-space-10"></div>
-                </div>
-              </div>
-            </div>
-
-          </div> <!-- end page content -->
-
-        </section><!-- end about-us section -->
-
- <!-- the-mission section -->
-        <section id="the-mission" class="page">
-
-          <!-- page content dark -->
-          <div class="page-content dark" >
-            <div class="container">
-              <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                  <!-- title page -->
-                  <div class="title-page clearfix" >
-                    <span>O Futuro</span>
-<!--                     <h2>
-                      The Mission 
-                    </h2> -->
-                    <!-- <div class="devider-top"></div> -->
-                    <div style="height: 50px;"></div>
-                    <i class="fa fa-arrow-circle-down"></i>
-                    <p class="text-center" >Para onde vamos caminhar.</p>
-                    <div class="devider-bottom"></div>
-                  </div><!-- end title page -->
-
-                  <div class="row">
-                    <div class="col-md-6">
-                      <h4 class="title-number"><span>1.</span> Valor no lixo</h4>
-                      <ul><li>Possibilitar que os resíduos tenham maior possibilidade de negociação.<br></li><li>Aumentar a rentabilidade dos envolvidos com o processamento do lixo.</li></ul>
-                    </div>
-                    <div class="col-md-6">
-                      <h4 class="title-number"><span>2.</span> Network</h4>
-                      <ul><li>Reduzir o numero de atravessadores aumentando o network entre os atores da cadeia de reciclagem<br></li></ul>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <h4 class="title-number"><span>3.</span> Generalizar</h4>
-                      <ul><li>Expandir a plataforma para abraçar cada vez mais tipos de resíduos e entidades que podem recebê-los.<br></li></ul>
-                    </div>
-                    <div class="col-md-6">
-                      <h4 class="title-number"><span>4.</span> Mapear</h4>
-                      <ul><li>mapear os atores por região para que a sociedade cívil tenha acesso a essas informações de maneira rápida e precisa.<br></li></ul>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <h4 class="title-number"><span>5.</span>  Alternativas</h4>
-                      <ul><li>identificar possíveis resíduos que não tenham capacidade de reinserção dentro da cadeia produtiva e propor alternativas.</li></ul>  
-                    </div>
-                  </div>
-
-                  <div class="white-space-20"></div>
-                </div>
-              </div>
-            </div>
-          </div><!-- end page content dark -->
-
-          <!-- page content xdark -->
-          <div class="page-content dark x-dark" >
-            <div class="container">
-              <div class="container">
-                <div class="row">
-                  <div class="col-md-8 col-md-offset-2">
-                    <div class="title-page2 clearfix" >
-                      <h3>
-                        <span style="font-size: 24px;"> Quem nos apoia</span>
-                      </h3>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <h4 class="title-page-2"><span>Estão falando de nós</span></h4>
-                        <p>Nós não estamos sozinhos nessa emporeitada. Algumas instituições estão ajudando financeiramente e na divulgação do projeto. Nós pouco seríamos sem esse suporte.</p>
-                        <p> <a href="https://www.facebook.com/sharer/sharer.php?u=www.vemdolixo.com" target="_blank" class="btn btn1 btn-light submit-2"> Ajude a divulgar </a></p>
-                      </div>
-                      <div class="col-md-6">
-                        <!-- list sponsor -->
-                        <ul class="list-unstyled list-sponsor clearfix">
-                          <li><a href="#"><img src="https://s3-sa-east-1.amazonaws.com/residoando/folha.png" alt=""></a></li>
-                          <li><a href="#"><img src="https://s3-sa-east-1.amazonaws.com/residoando/prefeitura.png" alt=""></a></li>
-<!--                           <li><a href="#"><img src="assets/theme/img/sponsor/2.png" alt=""></a></li>
-                          <li><a href="#"><img src="assets/theme/img/sponsor/4.png" alt=""></a></li>
-                          <li><a href="#"><img src="assets/theme/img/sponsor/5.png" alt=""></a></li>
-                          <li><a href="#"><img src="assets/theme/img/sponsor/6.png" alt=""></a></li> -->
-                        </ul><!-- end list sponsor -->
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div><!-- end page content xdark -->
-
-        </section><!-- end the-mission section -->
 
         <!-- the-team section -->
         <!-- <section id="the-team" class="page">
@@ -576,20 +442,20 @@
                   </div>
 
                   <div class="white-space-20"></div>
-                  <form method="post" id="ContactForm" name="contactForm" class="validate-form" novalidate="novalidate">
-
+                  <form method="post" id="ContactForm" name="contactForm" class="validate-form" novalidate="novalidate" action="{% url 'footer_form' %}">
+                    {% csrf_token %}
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="color-white">Nome completo (*)</label>
-                          <input type="email" class="form-control form-flat" placeholder="Seu nome completo" name="fullname" >
+                          <input type="email" class="form-control form-flat" placeholder="Seu nome completo" name="fullname" required id="full_name_footer">
                         </div>
                       </div>
                       <div class="col-md-6">
 
                         <div class="form-group">
                           <label class="color-white">Email (*)</label>
-                          <input type="email" class="form-control form-flat" placeholder="Seu email" name="email" >
+                          <input type="email" class="form-control form-flat" placeholder="Seu email" name="email" required id="email_footer">
                         </div>
                       </div>
                     </div>
@@ -601,10 +467,8 @@
                     <div class="white-space-20"></div>
 
                     <div class="form-group text-center">
-
-                      <a href="#" class="btn btn1 btn-light btn-form submit-2" > Enviar </a>
+                      <button class="btn btn1 btn-light btn-form submit-2" type="submit" id="submit_form_footer"> Enviar </button>
                     </div>
-
                   </form>
                 </div>
               </div>
@@ -768,6 +632,28 @@
             document.getElementById("submit_form").disabled = true;
           }
         }
+
+        document.getElementById("submit_form_footer").disabled = true;
+        $('#full_name_footer').on('input', function() { 
+            var full_name_footer = $("#full_name_footer").val();
+            var email_footer = $("#email_footer").val();
+
+            if (full_name_footer.length > 3 && email_footer.indexOf('@') !== -1 && full_name_footer.indexOf(' ') !== -1 && email_footer.length > 0) {
+              document.getElementById("submit_form_footer").disabled = false;
+            }else{
+              document.getElementById("submit_form_footer").disabled = true;
+            }
+        });
+        $('#email_footer').on('input', function() { 
+            var full_name_footer = $("#full_name_footer").val();
+            var email_footer = $("#email_footer").val();
+
+            if (full_name_footer.length > 3 && email_footer.indexOf('@') !== -1 && full_name_footer.indexOf(' ') !== -1 && email_footer.length > 0) {
+              document.getElementById("submit_form_footer").disabled = false;
+            }else{
+              document.getElementById("submit_form_footer").disabled = true;
+            }
+        });
     </script>
 
   </body>

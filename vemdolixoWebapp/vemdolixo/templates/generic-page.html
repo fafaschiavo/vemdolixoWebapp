@@ -139,6 +139,16 @@
     a{
       color: #4a8732;
     }
+    .btn1.btn-form{
+      padding-top: 5px;
+    }
+    .padd-donate{
+      margin-right: 15px;
+    }
+    .padd-donate a{
+      border: 2px solid #000000;
+      margin-top: 16px;
+    }
     @media (max-width: 600px) {
   	  .mdl-button--raised.mdl-button--colored{
   	  	font-size: 6px;
@@ -169,11 +179,27 @@
 {% endblock %}
 
   <header>
-    <div class="header">
+<!--     <div class="header">
       <div>
         <a href="/" class="logo black">
           <img style="height: 80px; max-width: 100%;" class="logo-with-slogan" src="https://s3-sa-east-1.amazonaws.com/residoando/logo-with-slogan-mix-green.svg" alt="">
         </a>       
+      </div>
+    </div> -->
+    <div class="row">
+      <div class="col-sm-6">
+        <a href="/" class="logo black"><img style="height: 70px;" class="logo-with-slogan" src="https://s3-sa-east-1.amazonaws.com/residoando/logo-with-slogan-mix-green.svg" alt=""></a>
+      </div>
+      <div class="col-sm-6 hidden-sm hidden-xs text-right">
+        <div class="padd-donate" style="float: right;">
+          <a  href="{% url 'about' %}" class="btn btn1 submit">Quem somos</a>
+        </div>
+        <div class="padd-donate" style="float: right;">
+          <a  href="/blog" class="btn btn1 submit">Conheça o Blog</a>
+        </div>
+        <div class="padd-donate" style="float: right;">
+          <a  href="#modal-donate" data-toggle="modal" class="btn btn1 submit">Fique por dentro</a>
+        </div>
       </div>
     </div>
   </header>
@@ -297,20 +323,20 @@
 
 
                   <div class="white-space-20"></div>
-                  <form method="post" id="ContactForm" name="contactForm" class="validate-form" novalidate="novalidate">
-
+                  <form method="post" id="ContactForm" name="contactForm" class="validate-form" novalidate="novalidate" action="{% url 'footer_form' %}">
+                    {% csrf_token %}
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="color-white">Nome completo (*)</label>
-                          <input type="email" class="form-control form-flat" placeholder="Seu nome completo" name="fullname" >
+                          <input type="email" class="form-control form-flat" placeholder="Seu nome completo" name="fullname" required id="full_name_footer">
                         </div>
                       </div>
                       <div class="col-md-6">
 
                         <div class="form-group">
                           <label class="color-white">Email (*)</label>
-                          <input type="email" class="form-control form-flat" placeholder="Seu email" name="email" >
+                          <input type="email" class="form-control form-flat" placeholder="Seu email" name="email" required id="email_footer">
                         </div>
                       </div>
                     </div>
@@ -322,11 +348,8 @@
                     <div class="white-space-20"></div>
 
                     <div class="form-group text-center">
-
-                      <a href="#" class="btn btn1 btn-light btn-form submit-2" > Enviar </a>
+                      <button class="btn btn1 btn-light btn-form submit-2" type="submit" id="submit_form_footer"> Enviar </button>
                     </div>
-
-
                   </form>
                 </div>
               </div>
@@ -388,12 +411,12 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h3 class="modal-title" >Em breve estaremos ativos!</h3>
+            <h3 class="modal-title" >Fique por dentro do que acontece aqui!</h3>
           </div>
           <form action="/generic-register/" id="generic-register" method="post">
-          	{% csrf_token %}
+            {% csrf_token %}
             <div class="modal-body clearfix">
-              <h4>Nós te avisamos quando isso acontecer.</h4>
+              <h4>Saiba de todas as novidades, artigos e publicações do nosso portal!</h4>
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
@@ -416,7 +439,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn1 btn-dark submit">Me avise</button>
+              <button type="submit" class="btn btn1 btn-dark submit">Enviar</button>
             </div>
           </form>
         </div>
@@ -490,6 +513,28 @@
         jQuery(".submit-2").mouseout(function() {
             this.style.background = "#000";
             this.style.color = "#fff";
+        });
+
+        document.getElementById("submit_form_footer").disabled = true;
+        $('#full_name_footer').on('input', function() { 
+            var full_name_footer = $("#full_name_footer").val();
+            var email_footer = $("#email_footer").val();
+
+            if (full_name_footer.length > 3 && email_footer.indexOf('@') !== -1 && full_name_footer.indexOf(' ') !== -1 && email_footer.length > 0) {
+              document.getElementById("submit_form_footer").disabled = false;
+            }else{
+              document.getElementById("submit_form_footer").disabled = true;
+            }
+        });
+        $('#email_footer').on('input', function() { 
+            var full_name_footer = $("#full_name_footer").val();
+            var email_footer = $("#email_footer").val();
+
+            if (full_name_footer.length > 3 && email_footer.indexOf('@') !== -1 && full_name_footer.indexOf(' ') !== -1 && email_footer.length > 0) {
+              document.getElementById("submit_form_footer").disabled = false;
+            }else{
+              document.getElementById("submit_form_footer").disabled = true;
+            }
         });
     </script>
 

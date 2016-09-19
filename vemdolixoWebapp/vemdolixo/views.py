@@ -5,6 +5,9 @@ from django.conf import settings
 from vemdolixo.models import generic_register, company, residue, receptivity, members, search_history
 from django.http import HttpResponse
 from difflib import SequenceMatcher
+from django.views.decorators.csrf import csrf_exempt
+from django.core.mail import EmailMultiAlternatives
+from django.core.mail import EmailMessage
 import json
 import googlemaps
 from datetime import datetime
@@ -12,6 +15,13 @@ import re
 import decimal
 
 # Create your procedures here.
+
+def mandrill_form_request(name, email, message):
+	msg = EmailMessage(subject="Form Request", from_email="VemDoLixo <atendimento@vemdolixo.com.br>", to=["atendimento@vemdolixo.com.br"])
+	msg.template_name = "form-request"
+	msg.global_merge_vars = {'NAME': name, 'EMAIL': email, 'MESSAGE': message}
+	msg.send()
+	return None
 
 def convert_characters(string_to_convert):
 	reload(sys)
@@ -90,6 +100,10 @@ def index(request):
 	}
 	return render(request, 'index.html', context)
 
+def about(request):
+	context = {}
+	return render(request, 'about.html', context)
+
 def simple_register_create(request):
 	first_name_lower = ''
 	last_name_lower = ''
@@ -114,6 +128,24 @@ def generic_register_create(request):
 	context = {}
 	return render(request, 'thanks-for-register.html', context)
 
+def footer_form(request):
+	fullname = request.POST['fullname']
+	email = request.POST['email']
+	message = request.POST['message']
+
+	first_name = fullname.split(' ', 1)[0]
+	first_name_lower = first_name.lower()
+	last_name = fullname.rsplit(' ', 1)[1]
+	last_name_lower = last_name.lower()
+	contact_email_lower = email.lower()
+	new_reg = generic_register(first_name = first_name_lower, last_name = last_name_lower, email = contact_email_lower)
+	new_reg.save()
+
+	mandrill_form_request(fullname, email, message)
+	context = {}
+	return render(request, 'thanks-for-register.html', context)
+
+@csrf_exempt
 def new_search(request):
 	name1 = ''
 	name2 = ''

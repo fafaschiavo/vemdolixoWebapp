@@ -25,6 +25,11 @@ SECRET_KEY = '*76aw_4t4y$ivi@8w=o6&^@fcvne&y8pa&g*i4sb_vrn3naamb'
 
 GOOGLE_API_KEY = 'AIzaSyB9S8Qr_YeWWl4aTWBgRxcOQhHBBWmyVF4'
 
+MANDRILL_API_KEY = "LH6aOs_bZID5RXJ6XiUx4A"
+EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
+DEFAULT_FROM_EMAIL = 'atendimento@vemdolixo.com.br'
+MANDRILL_API_URL = "https://mandrillapp.com/api/1.0"
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -41,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'djrill',
 ]
 
 MIDDLEWARE_CLASSES = [
