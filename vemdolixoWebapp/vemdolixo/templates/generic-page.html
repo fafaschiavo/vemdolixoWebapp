@@ -49,7 +49,7 @@
 
   <style type="text/css">
     .mdl-textfield{
-      padding-top: 18px;
+      padding: 0px;
       width: 100%;
     }
     .mdl-textfield__input{
@@ -75,7 +75,7 @@
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
       text-transform: uppercase;
-      margin-top: 16px;
+      margin-top: 0px;
       width: 100%;
     }
     .wrap-header .content-header .mid-content-header h1{
@@ -187,10 +187,11 @@
       </div>
     </div> -->
     <div class="row">
-      <div class="col-sm-6">
-        <a href="/" class="logo black"><img style="height: 70px;" class="logo-with-slogan" src="https://s3-sa-east-1.amazonaws.com/residoando/logo-with-slogan-mix-green.svg" alt=""></a>
+      <div class="col-sm-2">
+        <a href="/" class="logo black"><img style="height: 70px; max-width: 100%;" class="logo-with-slogan" src="https://s3-sa-east-1.amazonaws.com/residoando/logo-with-slogan-mix-green.svg" alt=""></a>
       </div>
-      <div class="col-sm-6 hidden-sm hidden-xs text-right">
+      <div class="col-sm-5 hidden-sm hidden-xs text-right"></div>
+      <div class="col-sm-5 hidden-sm hidden-xs text-right">
         <div class="padd-donate" style="float: right;">
           <a  href="{% url 'about' %}" class="btn btn1 submit">Quem somos</a>
         </div>

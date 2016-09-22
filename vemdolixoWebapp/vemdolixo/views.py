@@ -2,7 +2,7 @@
 import sys
 from django.shortcuts import render
 from django.conf import settings
-from vemdolixo.models import generic_register, company, residue, receptivity, members, search_history
+from vemdolixo.models import generic_register, company, residue, receptivity, members, search_history, residue_association
 from django.http import HttpResponse
 from difflib import SequenceMatcher
 from django.views.decorators.csrf import csrf_exempt
@@ -54,28 +54,30 @@ def verify_http_url(url):
 	return new_url
 
 def rank_string_similarity_with_residues_type(string_to_test):
-	residues = residue.objects.all()
+	residues = residue_association.objects.all()
 	match_array = {}
 	for residue_type in residues:
-		result = SequenceMatcher(None, string_to_test, residue_type.residue_name).ratio()
-		match_array[result] = residue_type
+		result = SequenceMatcher(None, string_to_test, residue_type.term).ratio()
+		original_residue = residue.objects.filter(id = residue_type.residue_id)
+		match_array[result] = original_residue
 
 	score_array = sorted(match_array, reverse=True)
-	
+
 	result_array = {}
 	index = 0
 	for score in score_array:
-		result_array[index] = match_array[score]
+		result_array[index] = match_array[score][0]
 		index = index + 1
 
 	return result_array
 
 def best_match_with_residues_type(string_to_test):
-	residues = residue.objects.all()
+	residues = residue_association.objects.all()
 	match_array = {}
 	for residue_type in residues:
-		result = SequenceMatcher(None, string_to_test, residue_type.residue_name).ratio()
-		match_array[result] = residue_type
+		result = SequenceMatcher(None, string_to_test, residue_type.term).ratio()
+		original_residue = residue.objects.filter(id = residue_type.residue_id)
+		match_array[result] = original_residue
 
 	score_array = sorted(match_array, reverse=True)
 	

@@ -171,6 +171,16 @@ class residue(models.Model):
 	def __unity__(self):
 		return self.unity
 
+class residue_association(models.Model):
+	term = models.CharField(max_length=200)
+	residue_id = models.IntegerField(default=0)
+
+	def __term__(self):
+		return self.term
+
+	def __residue_id__(self):
+		return self.residue_id
+
 class receptivity(models.Model):
 	residue_id = models.IntegerField(default=0)
 	company_id = models.IntegerField(default=0)

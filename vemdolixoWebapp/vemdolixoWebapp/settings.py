@@ -31,9 +31,9 @@ DEFAULT_FROM_EMAIL = 'atendimento@vemdolixo.com.br'
 MANDRILL_API_URL = "https://mandrillapp.com/api/1.0"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
