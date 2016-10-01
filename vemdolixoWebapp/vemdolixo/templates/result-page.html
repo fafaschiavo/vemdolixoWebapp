@@ -407,52 +407,60 @@ $(function(){ init(); });
 <script src="http://malsup.github.com/jquery.form.js"></script>
 
 <script type="text/javascript">
+  
   if (typeof HTMLDialogElement === 'function') {
-    $(".container").css("filter", "blur(7px)");
+    setTimeout(function() {
+      $(".container").css("filter", "blur(7px)");
 
-    var dialog = document.querySelector('dialog');
-    var showDialogButton = document.querySelector('#show-dialog');
-    if (! dialog.showModal) {
-      dialogPolyfill.registerDialog(dialog);
-    }
+      var dialog = document.querySelector('dialog');
+      var showDialogButton = document.querySelector('#show-dialog');
+      if (! dialog.showModal) {
+        dialogPolyfill.registerDialog(dialog);
+      }
 
-    dialog.showModal();
+      dialog.showModal();
 
-    dialog.querySelector('.close').addEventListener('click', function() {
-      $(".container").css("filter", "blur(0px)")
-      dialog.close();
-    });
-
-    // bind 'myForm' and provide a simple callback function 
-    $('#register-form').ajaxForm(function() { 
-        var dialog = document.querySelector('dialog');
+      dialog.querySelector('.close').addEventListener('click', function() {
         $(".container").css("filter", "blur(0px)")
         dialog.close();
-    }); 
-} else {
-  $(".container").css("filter", "blur(7px)");
-  $("#firefox-dialog-div").addClass("firefox-dialog");
-  document.getElementById("submit-generic-registration").disabled = true;
+      });
 
-  $('#contact_email').on('input', function() { 
-      var email = $("#contact_email").val();
-
-      if (email.length > 4 && email.indexOf('@') !== -1 && email.indexOf('.') !== -1) {
-        document.getElementById("submit-generic-registration").disabled = false;
-      }else{
-        document.getElementById("submit-generic-registration").disabled = true;
-      }
-  });
-
-  $(".close").click(function(){
-      $(".container").css("filter", "blur(0px)");
-      $("dialog").css("display", "none");
-  });
-
-  $('#register-form').ajaxForm(function() { 
-    $(".container").css("filter", "blur(0px)");
+      // bind 'myForm' and provide a simple callback function 
+      $('#register-form').ajaxForm(function() { 
+          var dialog = document.querySelector('dialog');
+          $(".container").css("filter", "blur(0px)")
+          dialog.close();
+      }); 
+    }, 5000);
+  } else {
     $("dialog").css("display", "none");
-  });
-}
+    setTimeout(function() {
+      $("dialog").css("display", "inherit");
+      $(".container").css("filter", "blur(7px)");
+      $("#firefox-dialog-div").addClass("firefox-dialog");
+      document.getElementById("submit-generic-registration").disabled = true;
+
+      $('#contact_email').on('input', function() { 
+          var email = $("#contact_email").val();
+
+          if (email.length > 4 && email.indexOf('@') !== -1 && email.indexOf('.') !== -1) {
+            document.getElementById("submit-generic-registration").disabled = false;
+          }else{
+            document.getElementById("submit-generic-registration").disabled = true;
+          }
+      });
+
+      $(".close").click(function(){
+          $(".container").css("filter", "blur(0px)");
+          $("dialog").css("display", "none");
+      });
+
+      $('#register-form').ajaxForm(function() { 
+        $(".container").css("filter", "blur(0px)");
+        $("dialog").css("display", "none");
+      });
+    }, 5000);
+  }
+
 </script>
 {% endblock %}
