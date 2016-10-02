@@ -198,7 +198,7 @@ def new_search(request):
 		context = {}
 		return render(request, 'location-not-found.html', context)
 
-	companies = company.objects.all()
+	companies = company.objects.filter(is_active = 1)
 	distance_array = {}
 	for company_item in companies:
 		distance = calculate_distance(lat_user, lon_user, company_item.latitude, company_item.longitude)

@@ -9,8 +9,8 @@ counter = 1
 with open('dump_company.csv', 'rb') as csvfile:
 	spamreader = csv.reader(csvfile, delimiter='&', quotechar='|')
 	for row in spamreader:
-		insert_string = "insert into vemdolixo_company (organization_name, organization_type, phone, email, city, state, neighborhood, address, website, cnpj, latitude, longitude, is_active) "
-		insert_string = insert_string + "values ('" + row[1] + "', '" + row[0] + "', '"+ row[2] +"','" + row[3] + "','" + row[4] + "','" + row[5] + "','" + row[6] + "','" + row[7] + "', '" + row[8] + "', '" + row[9] + "'," + row[10] + "," + row[11] + ", 1 )";
+		insert_string = "insert into vemdolixo_company (organization_name, organization_type, phone, email, city, state, neighborhood, address, website, cnpj, latitude, longitude, is_active, description) "
+		insert_string = insert_string + "values ('" + row[1] + "', '" + row[0] + "', '"+ row[2] +"','" + row[3] + "','" + row[4] + "','" + row[5] + "','" + row[6] + "','" + row[7] + "', '" + row[8] + "', '" + row[9] + "'," + row[10] + "," + row[11] + ", 1, '-')";
 		try:
 			conn = MySQLdb.connect(host= "localhost",
 			                  user="root",
