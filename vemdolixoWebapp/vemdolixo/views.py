@@ -23,6 +23,17 @@ def mandrill_form_request(name, email, message):
 	msg.send()
 	return None
 
+def mandrill_generic_request(email, text):
+	msg = EmailMultiAlternatives("Requisição Formulário", "text body", "atendimento@vemdolixo.com.br", [email])
+	email_text = "<html>" + text + "</html>"
+	msg.attach_alternative(email_text, "text/html")
+	msg.send()
+	return None
+
+msg = EmailMultiAlternatives("Subject", "text body",
+                             "from@example.com", ["to@example.com"])
+msg.attach_alternative("<html>html body</html>", "text/html")
+
 def convert_characters(string_to_convert):
 	reload(sys)
 	sys.setdefaultencoding('UTF8')
@@ -293,3 +304,54 @@ def new_search(request):
 		'lon3': lon3,
 	}
 	return render(request, 'result-page.html', context)
+
+def great_amounts(request):
+	# fullname = request.POST['fullname']
+
+	context = {}
+	return render(request, 'great-amounts.html', context)
+
+def great_amounts_send_email(request):
+	fullname = request.POST['full_name']
+	email = request.POST['contact_email']
+	residue_type = request.POST['residue_type']
+	other = request.POST.get('other', ' - ')
+	amount = request.POST['amount']
+	amount = request.POST.get('amount', '0')
+	amount_type = request.POST.get('amount_type', ' - ')
+
+	reload(sys)
+	sys.setdefaultencoding('UTF8')
+	request_text = 'Nome completo - ' + fullname + '\n'
+	request_text = request_text + 'email - ' + email + '\n'
+	request_text = request_text + 'Tipo de resíduo - ' + residue_type + '\n'
+	request_text = request_text + 'Outro (campo opcional) - ' + other + '\n'
+	request_text = request_text + 'Quantidade - ' + amount + ' ' + amount_type + '\n'
+
+	mandrill_generic_request("fabricio@vemdolixo.com", request_text)
+	mandrill_generic_request("fabricio@vemdolixo.com.br", request_text)
+	mandrill_generic_request("augusto@vemdolixo.com", request_text)
+	mandrill_generic_request("augusto@vemdolixo.com.br", request_text)
+	mandrill_generic_request("renato@vemdolixo.com", request_text)
+	mandrill_generic_request("renato@vemdolixo.com.br", request_text)
+	mandrill_generic_request("atendimento@vemdolixo.com.br", request_text)
+
+	try:
+		first_name = fullname.split(' ', 1)[0]
+		first_name_lower = first_name.lower()
+		last_name = fullname.rsplit(' ', 1)[1]
+		last_name_lower = last_name.lower()
+		contact_email_lower = email.lower()
+		new_reg = generic_register(first_name = first_name_lower, last_name = last_name_lower, email = contact_email_lower)
+		new_reg.save()
+	except:
+		try:
+			fullname_lower = fullname.lower()
+			contact_email_lower = email.lower()
+			new_reg = generic_register(first_name = fullname_lower, last_name = '', email = contact_email_lower)
+			new_reg.save()
+		except:
+			pass
+
+	context = {}
+	return render(request, 'thanks-for-register.html', context)

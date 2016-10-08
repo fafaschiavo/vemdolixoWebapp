@@ -1,0 +1,101 @@
+{% extends "generic-page.html" %}
+
+{% block style %}
+<style type="text/css">
+	.header-options{
+		font-family: 'Montserrat', sans-serif;
+		text-align: center;
+		width: 95%; margin:auto;
+	}
+	.main-section {
+	    height: 115vh;
+	}
+	@media (max-width: 600px) {
+		.main-section {
+		    height: 180vh;
+		}
+	}
+</style>
+{% endblock %}
+
+{% block content %}
+<h3 style="margin-top: 40px; margin-bottom: 0px;" class="header-options">Você quer que a gente busque seus resíduos onde você está?</h3>
+<h4 class="header-options" style="margin: 0px;">Ou</h4>
+<h3 style="margin-bottom: 0px; margin-top: 0px;" class="header-options">Você tem uma quantidade grande de resíduos?</h3>
+
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--4-col"></div>
+  <div class="mdl-cell mdl-cell--4-col">
+  	<div>
+      <form action="{% url 'great_amounts_send_email' %}" id="great-amounts" method="post">
+        {% csrf_token %}
+        <div class="modal-body clearfix">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Nome Completo:</label>
+                <input id="full_name" type="text" name="full_name" class="form-control" placeholder="Nome..." >
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Email:</label>
+                <input id="contact_email" type="email" name="contact_email" class="form-control" placeholder="Email..." >
+              </div>
+            </div>
+            <div class="col-md-6">
+            	<label>Tipo de resíduo:</label>
+				<select name="residue_type" id="residue_type" class="form-group header-options btn1 btn-dark" style="height: 50px; width: 100%;">
+				  <option value="Eletrônicos">Eletrônicos</option>
+				  <option value="Eletrônicos">Elétrodomésticos</option>
+				  <option value="Óleo de cozinha">Óleo de cozinha</option>
+				  <option value="Outros">Outros</option>
+				</select>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group" style="margin-top: 25px;">
+                <input id="other" type="text" name="other" class="form-control" placeholder="Outro tipo....">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Quantidade:</label>
+                <input  id="amount" type="text" name="amount" class="form-control" placeholder="Quantidade...">
+              </div>
+            </div>
+            <div class="col-md-6" style="margin-top: 25px;">
+				<select name="amount_type" id="amount_type" class="form-group header-options btn1 btn-dark" style="height: 50px; width: 100%;">
+				  <option value="Quilogramas">Quilogramas</option>
+				  <option value="Quilogramas mensais">Quilogramas mensais</option>
+				  <option value="Litros">Litros</option>
+				  <option value="Litros mensais">Litros mensais</option>
+				  <option value="Unidades">Unidades</option>
+				  <option value="Unidades mensais">Unidades mensais</option>
+				</select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a href="/" style="margin-right: 10px;">Voltar</a>
+          <button type="submit" class="btn btn1 btn-dark submit">Enviar</button>
+        </div>
+        <p style="width: 90%; color: red; margin: auto;">ATENÇÂO - Não garantimos que encontraremos um destinatário para seus resíduos. Mas entraremos em contato se encontrarmos.</p>
+      </form>
+  	</div>
+  </div>
+  <div class="mdl-cell mdl-cell--4-col"></div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+    document.getElementById("other").disabled = true;
+    $('#residue_type').on('input', function() { 
+    	if ($("#residue_type").val() == 'Outros') {
+    		document.getElementById("other").disabled = false;
+    	}else{
+    		document.getElementById("other").disabled = true;
+    	}
+    });
+</script>
+{% endblock %}

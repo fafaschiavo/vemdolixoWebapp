@@ -120,6 +120,9 @@
     .site-description.f_bottom{
       background: rgba(255, 255, 255, 0.15);
     }
+    .site-description{
+      padding: 0 20px 0 30px;
+    }
     .box-team{
       width: 100%;
       max-width: 100%;
@@ -257,6 +260,10 @@
                     </div>
                     <div class="mdl-cell mdl-cell--2-col cell-phone-custom"></div>
                   </div>
+                  <div style="width: 20%; margin: auto; text-align: center;">
+                    <hr style="width: 20%; margin: auto; margin-bottom: 10px;">
+                    <a href="{% url 'great_amounts' %}"><span style="font-family: 'Montserrat', sans-serif;">Quero descartar sem sair de casa</span></a>
+                  </div>
                 </form>
 
                 <form action="{% url 'new_search' %}" autocomplete="on" id="new-search-form" method="post" class="form-mobile">
@@ -279,6 +286,10 @@
                     </div>
                     <div class="mdl-cell mdl-cell--2-col cell-phone-custom"></div>
                   </div>
+                  <div style="width: 90%; margin: auto; text-align: center;">
+                    <hr style="width: 20%; margin: auto; margin-bottom: 10px;">
+                    <a href="{% url 'great_amounts' %}"><span style="font-family: 'Montserrat', sans-serif;">Descartar sem sair de casa</span></a>
+                  </div>
                 </form>
 
               </div>
@@ -287,11 +298,11 @@
           <!-- bottom header -->
           <div class="site-description f_bottom" id="site-description">
             <div class="row">
-              <div class="col-sm-6">
-                <a href="/" class="logo white"><img style="height: 70px;" class="logo-with-slogan" src="https://s3-sa-east-1.amazonaws.com/residoando/logo-white-site-svg.svg" alt=""></a>
-                <a href="/" class="logo black"><img style="height: 70px;" class="logo-with-slogan" src="https://s3-sa-east-1.amazonaws.com/residoando/logo-black-site-svg.svg" alt=""></a>
+              <div class="col-sm-2">
+                <a href="/" class="logo white"><img style="height: 68px;" class="logo-with-slogan" src="https://s3-sa-east-1.amazonaws.com/residoando/logo-white-site-svg.svg" alt=""></a>
+                <a href="/" class="logo black"><img style="height: 68px;" class="logo-with-slogan" src="https://s3-sa-east-1.amazonaws.com/residoando/logo-black-site-svg.svg" alt=""></a>
               </div>
-              <div class="col-sm-6 hidden-sm hidden-xs text-right">
+              <div class="col-sm-10 hidden-sm hidden-xs text-right">
                 <div class="padd-donate" style="float: right;">
                   <a  href="{% url 'about' %}" class="btn btn1 submit">Quem somos</a>
                 </div>
@@ -300,6 +311,12 @@
                 </div>
                 <div class="padd-donate" style="float: right;">
                   <a  href="#modal-donate" data-toggle="modal" class="btn btn1 submit">Fique por dentro</a>
+                </div>
+                <div class="padd-donate" style="float: right;">
+                  <a  href="{% url 'great_amounts' %}" data-toggle="modal" class="btn btn1 submit">Sem sair de casa</a>
+                </div>
+                <div class="padd-donate" style="float: right;">
+                  <a  href="{% url 'great_amounts' %}" data-toggle="modal" class="btn btn1 submit">Para Empresas</a>
                 </div>
               </div>
             </div>
