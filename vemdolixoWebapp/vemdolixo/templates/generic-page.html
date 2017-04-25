@@ -118,6 +118,7 @@
       width: 100%;
       z-index: 20;
       background-color: #ffffff;
+      max-height: 90px;
     }
     .wrapper{
       box-shadow: none !important;
@@ -126,7 +127,7 @@
       font-size: 30px !important;
     }
     .main-section{
-      height:100vh;
+      height:110vh;
     }
     .side-section{
       padding-top: 2vh;
@@ -135,6 +136,9 @@
       width: 100%;
       height: 20vh;
       margin-bottom: 20px;
+    }
+    .page .title-page{
+      padding-bottom: 0px;
     }
     a{
       color: #4a8732;
@@ -147,7 +151,19 @@
     }
     .padd-donate a{
       border: 2px solid #000000;
-      margin-top: 16px;
+      margin-top: 25px;
+    }
+    .bottom-footer{
+      background: #4C8832;
+      box-shadow: 10px 0px 6px -6px rgba(0, 0, 0, 0.1) !important;
+    }
+    .main-footer .social-footer a{
+      background: #fff;
+      color: #292929;
+    }
+    .bottom-footer .back-to-top{
+      background: #fff;
+      color: #292929;
     }
     @media (max-width: 600px) {
   	  .mdl-button--raised.mdl-button--colored{
@@ -187,25 +203,25 @@
       </div>
     </div> -->
     <div class="row">
-      <div class="col-sm-2">
-        <a href="/" class="logo black"><img style="height: 70px; max-width: 100%;" class="logo-with-slogan" src="https://s3-sa-east-1.amazonaws.com/residoando/logo-with-slogan-mix-green.svg" alt=""></a>
+      <div class="col-sm-3">
+        <a href="/" class="logo black"><img style="height: 90px; max-width: 100%;" class="logo-with-slogan" src="https://s3-sa-east-1.amazonaws.com/residoando/logo-with-slogan-mix-green.svg" alt=""></a>
       </div>
-      <div class="col-sm-2 hidden-sm hidden-xs text-right"></div>
-      <div class="col-sm-10 hidden-sm hidden-xs text-right">
+      <div class="col-sm-1 hidden-sm hidden-xs text-right"></div>
+      <div class="col-sm-8 hidden-sm hidden-xs text-right">
         <div class="padd-donate" style="float: right;">
-          <a  href="{% url 'about' %}" class="btn btn1 submit">Quem somos</a>
+          <!-- <a  href="{% url 'about' %}" class="btn btn1 submit">Quem somos</a> -->
         </div>
         <div class="padd-donate" style="float: right;">
           <a  href="/blog" class="btn btn1 submit">Conheça o Blog</a>
         </div>
         <div class="padd-donate" style="float: right;">
-          <a  href="#modal-donate" data-toggle="modal" class="btn btn1 submit">Fique por dentro</a>
+          <!-- <a  href="#modal-donate" data-toggle="modal" class="btn btn1 submit">Fique por dentro</a> -->
         </div>
         <div class="padd-donate" style="float: right;">
-          <a  href="{% url 'great_amounts' %}" data-toggle="modal" class="btn btn1 submit">Sem sair de casa</a>
+          <!-- <a  href="{% url 'great_amounts' %}" data-toggle="modal" class="btn btn1 submit">Sem sair de casa</a> -->
         </div>
         <div class="padd-donate" style="float: right;">
-          <a  href="{% url 'great_amounts' %}" data-toggle="modal" class="btn btn1 submit">Para Empresas</a>
+          <!-- <a  href="{% url 'great_amounts' %}" data-toggle="modal" class="btn btn1 submit">Para Empresas</a> -->
         </div>
       </div>
     </div>
@@ -306,13 +322,13 @@
                     <h2>
                       Entre em contato 
                     </h2>
-                    <div class="devider-top"></div>
+<!--                     <div class="devider-top"></div>
                     <i class="fa fa-arrow-circle-down"></i>
                     <p class="text-center" >Tem alguma dúvida? Sugestão? <br/>Estamos sempre a disposição!</p>
-                    <div class="devider-bottom"></div>
+                    <div class="devider-bottom"></div> -->
                   </div>
 
-                  <div class="text-center clearfix">
+<!--                   <div class="text-center clearfix">
 
                     <div class="col-md-4 no-padding"></div>
 
@@ -326,7 +342,7 @@
 
                     <div class="col-md-4 no-padding"></div>
 
-                  </div>
+                  </div> -->
 
 
                   <div class="white-space-20"></div>
@@ -399,10 +415,10 @@
           <div class="container">
             <ul class="list-inline social-footer">
               <li><a href="https://www.facebook.com/Vemdolixo/"><i class="fa fa-facebook"></i></a></li>
-              <li><a href="#"><i class="fa fa-google"></i></a></li>
-              <li><a href="https://twitter.com/LixoVem"><i class="fa fa-twitter"></i></a></li>
+              <!-- <li><a href="#"><i class="fa fa-google"></i></a></li> -->
+              <!-- <li><a href="https://twitter.com/LixoVem"><i class="fa fa-twitter"></i></a></li> -->
               <li><a href="#"><i class="fa fa-youtube"></i></a></li>
-              <li><a href="#"><i class="fa fa-tumblr"></i></a></li>
+              <!-- <li><a href="#"><i class="fa fa-tumblr"></i></a></li> -->
             </ul>
           </div>
         </div><!-- end bottom footer -->

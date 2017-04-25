@@ -115,7 +115,7 @@
     .wrap-header .content-header .mid-content-header h1{
       margin-bottom: 0px;
       letter-spacing: 2px;
-      font-size: 48px;
+      font-size: 23px;
     }
     .site-description.f_bottom{
       background: rgba(255, 255, 255, 0.15);
@@ -160,6 +160,9 @@
     }
     a{
       color: #fff;
+    }
+    .page .title-page{
+      padding-bottom: 0px;
     }
     @media (max-width: 600px) {
       .input-mobile{
@@ -231,7 +234,7 @@
             <div class="content-header">
               <div class="mid-content-header">
                 <div><img src="https://s3-sa-east-1.amazonaws.com/residoando/logo-white-solo-01.png" style="max-width: 90%;"></div>
-                <h1 class="main-title">VAMOS FALAR DOS NOSSOS RESÍDUOS?</h1>
+                <h1 class="main-title">SAIBA ONDE DESCARTAR LIXO ELETROELETRÔNICO EM SÃO PAULO</h1>
 
                 <form action="{% url 'new_search' %}" autocomplete="on" id="new-search-form" method="post" class="form-desk">
                   <div class="mdl-grid">
@@ -260,10 +263,10 @@
                     </div>
                     <div class="mdl-cell mdl-cell--2-col cell-phone-custom"></div>
                   </div>
-                  <div style="width: 20%; margin: auto; text-align: center;">
+<!--                   <div style="width: 20%; margin: auto; text-align: center;">
                     <hr style="width: 20%; margin: auto; margin-bottom: 10px;">
                     <a href="{% url 'great_amounts' %}"><span style="font-family: 'Montserrat', sans-serif;">Quero descartar sem sair de casa</span></a>
-                  </div>
+                  </div> -->
                 </form>
 
                 <form action="{% url 'new_search' %}" autocomplete="on" id="new-search-form" method="post" class="form-mobile">
@@ -300,23 +303,23 @@
             <div class="row">
               <div class="col-sm-2">
                 <a href="/" class="logo white"><img style="height: 68px;" class="logo-with-slogan" src="https://s3-sa-east-1.amazonaws.com/residoando/logo-white-site-svg.svg" alt=""></a>
-                <a href="/" class="logo black"><img style="height: 68px;" class="logo-with-slogan" src="https://s3-sa-east-1.amazonaws.com/residoando/logo-black-site-svg.svg" alt=""></a>
+                <a href="/" class="logo black"><img style="height: 68px;" class="logo-with-slogan" src="https://s3-sa-east-1.amazonaws.com/residoando/logo-with-slogan-mix-green.svg" alt=""></a>
               </div>
               <div class="col-sm-10 hidden-sm hidden-xs text-right">
                 <div class="padd-donate" style="float: right;">
-                  <a  href="{% url 'about' %}" class="btn btn1 submit">Quem somos</a>
+                  <!-- <a  href="{% url 'about' %}" class="btn btn1 submit">Quem somos</a> -->
                 </div>
                 <div class="padd-donate" style="float: right;">
                   <a  href="/blog" class="btn btn1 submit">Conheça o Blog</a>
                 </div>
                 <div class="padd-donate" style="float: right;">
-                  <a  href="#modal-donate" data-toggle="modal" class="btn btn1 submit">Fique por dentro</a>
+                  <!-- <a  href="#modal-donate" data-toggle="modal" class="btn btn1 submit">Fique por dentro</a> -->
                 </div>
                 <div class="padd-donate" style="float: right;">
-                  <a  href="{% url 'great_amounts' %}" data-toggle="modal" class="btn btn1 submit">Sem sair de casa</a>
+                  <!-- <a  href="{% url 'great_amounts' %}" data-toggle="modal" class="btn btn1 submit">Sem sair de casa</a> -->
                 </div>
                 <div class="padd-donate" style="float: right;">
-                  <a  href="{% url 'great_amounts' %}" data-toggle="modal" class="btn btn1 submit">Para Empresas</a>
+                  <!-- <a  href="{% url 'great_amounts' %}" data-toggle="modal" class="btn btn1 submit">Para Empresas</a> -->
                 </div>
               </div>
             </div>
@@ -426,12 +429,12 @@
                     <h2>
                       Entre em contato 
                     </h2>
-                    <div class="devider-top"></div>
+<!--                     <div class="devider-top"></div>
                     <i class="fa fa-arrow-circle-down"></i>
                     <p class="text-center" >Tem alguma dúvida? Sugestão? <br/>Estamos sempre a disposição!</p>
-                    <div class="devider-bottom"></div>
+                    <div class="devider-bottom"></div> -->
                   </div>
-
+<!-- 
                   <div class="text-center clearfix">
 
                     <div class="col-md-4 no-padding"></div>
@@ -446,7 +449,7 @@
 
                     <div class="col-md-4 no-padding"></div>
 
-                  </div>
+                  </div> -->
 
                   <div class="white-space-20"></div>
                   <form method="post" id="ContactForm" name="contactForm" class="validate-form" novalidate="novalidate" action="{% url 'footer_form' %}">
@@ -494,10 +497,10 @@
           <div class="container">
             <ul class="list-inline social-footer">
               <li><a href="https://www.facebook.com/Vemdolixo/" target="_blank"><i class="fa fa-facebook"></i></a></li>
-              <li><a href="#" target="_blank"><i class="fa fa-google"></i></a></li>
-              <li><a href="https://twitter.com/LixoVem" target="_blank"><i class="fa fa-twitter"></i></a></li>
+              <!-- <li><a href="#" target="_blank"><i class="fa fa-google"></i></a></li> -->
+              <!-- <li><a href="https://twitter.com/LixoVem" target="_blank"><i class="fa fa-twitter"></i></a></li> -->
               <li><a href="#" target="_blank"><i class="fa fa-youtube"></i></a></li>
-              <li><a href="#" target="_blank"><i class="fa fa-tumblr"></i></a></li>
+              <!-- <li><a href="#" target="_blank"><i class="fa fa-tumblr"></i></a></li> -->
             </ul>
           </div>
         </div><!-- end bottom footer -->
@@ -677,3 +680,5 @@ user_cep_label
 residue_type_label
 $("#user_cep_label").css("display","none");
 -->
+
+<!-- https://s3-sa-east-1.amazonaws.com/residoando/logo-with-slogan-mix-green.svg -->
