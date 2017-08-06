@@ -166,7 +166,7 @@
     }
     @media (max-width: 600px) {
       .input-mobile{
-        text-align: center;
+        text-align: left;
       }
       .mdl-textfield{
         padding: 0px;
@@ -242,14 +242,23 @@
                     <div class="mdl-cell mdl-cell--3-col cell-phone-custom">
 
                         <div class="mdl-textfield mdl-js-textfield">
-                          <input class="mdl-textfield__input" id="residue_type" type="text" name="residue_type" placeholder="O que você precisa descartar?">
-                          <!-- <label class="mdl-textfield__label" for="sample1" id="residue_type_label">O que você precisa descartar?</label> -->
+                          <!-- <input class="mdl-textfield__input" id="residue_type" type="text" name="residue_type" placeholder="O que você precisa descartar?"> -->
+                            <select name="residue_type" id="residue_type" form="new-search-form" class="mdl-textfield__input">
+                                <option value="" disabled selected>O que você precisa descartar?</option>
+                                <option value="PEQUENOS DISPOSITIVOS">Pequenos Dispositivos</option>
+                                <option value="MÉDIOS DISPOSITIVOS">Médios Dispositivos</option>
+                                <option value="GRANDES DISPOSITIVOS">Grandes Dispositivos</option>
+                                <option value="PILHAS E BATERIAS">Pilhas e Baterias</option>
+                                <option value="LÂMPADAS">Lâmpadas</option>
+                                <option value="TELEVISÕES DE TUBO">Televisões de Tubo</option>
+                            </select>
                         </div>
+
                     </div>
 
                     <div class="mdl-cell mdl-cell--3-col cell-phone-custom">
                         <div class="mdl-textfield mdl-js-textfield">
-                          <input class="mdl-textfield__input" type="text" id="user_cep" type="text" name="user_cep" placeholder="Seu endereço ou CEP">
+                          <input class="mdl-textfield__input" type="text" id="user_cep" type="text" name="user_cep" placeholder="Seu endereço ou CEP" style="border-radius: 4px;">
                           <!-- <label class="mdl-textfield__label" for="sample1" id="user_cep_label">Seu CEP ou endereço</label> -->
                         </div>
                     </div>
@@ -267,19 +276,32 @@
                     <hr style="width: 20%; margin: auto; margin-bottom: 10px;">
                     <a href="{% url 'great_amounts' %}"><span style="font-family: 'Montserrat', sans-serif;">Quero descartar sem sair de casa</span></a>
                   </div> -->
+                  <div style="margin: auto; text-align: center;">
+                    <!-- <hr style="width: 20%; margin: auto; margin-bottom: 10px;"> -->
+                    <img style="width: 57%;" src="https://s3-sa-east-1.amazonaws.com/residoando/new_footer_v4.png">
+                  </div>
                 </form>
 
                 <form action="{% url 'new_search' %}" autocomplete="on" id="new-search-form" method="post" class="form-mobile">
                   <div class="mdl-grid">
                     <div class="mdl-cell mdl-cell--3-col cell-phone-custom">
                         <div class="mdl-textfield mdl-js-textfield">
-                          <input class="mdl-textfield__input input-mobile" id="residue_type" type="text" name="residue_type" placeholder="O que você precisa descartar?">
+                          <!-- <input class="mdl-textfield__input input-mobile" id="residue_type" type="text" name="residue_type" placeholder="O que você precisa descartar?"> -->
+                            <select name="residue_type" id="residue_type" form="new-search-form" class="mdl-textfield__input input-mobile">
+                                <option value="" disabled selected>O que você precisa descartar?</option>
+                                <option value="PEQUENOS DISPOSITIVOS">Pequenos Dispositivos</option>
+                                <option value="MÉDIOS DISPOSITIVOS">Médios Dispositivos</option>
+                                <option value="GRANDES DISPOSITIVOS">Grandes Dispositivos</option>
+                                <option value="PILHAS E BATERIAS">Pilhas e Baterias</option>
+                                <option value="LÂMPADAS">Lâmpadas</option>
+                                <option value="TELEVISÕES DE TUBO">Televisões de Tubo</option>
+                            </select>
                         </div>
                     </div>
 
                     <div class="mdl-cell mdl-cell--3-col cell-phone-custom">
                         <div class="mdl-textfield mdl-js-textfield">
-                          <input class="mdl-textfield__input input-mobile" type="text" id="user_cep" type="text" name="user_cep" placeholder="Seu CEP ou endereço">
+                          <input class="mdl-textfield__input input-mobile" type="text" id="user_cep" type="text" name="user_cep" placeholder="Seu CEP ou endereço" style="border-radius: 4px;">
                         </div>
                     </div>
                     <div class="mdl-cell mdl-cell--2-col cell-phone-custom"> 
@@ -289,10 +311,10 @@
                     </div>
                     <div class="mdl-cell mdl-cell--2-col cell-phone-custom"></div>
                   </div>
-                  <div style="width: 90%; margin: auto; text-align: center;">
+<!--                   <div style="width: 90%; margin: auto; text-align: center;">
                     <hr style="width: 20%; margin: auto; margin-bottom: 10px;">
                     <a href="{% url 'great_amounts' %}"><span style="font-family: 'Montserrat', sans-serif;">Descartar sem sair de casa</span></a>
-                  </div>
+                  </div> -->
                 </form>
 
               </div>

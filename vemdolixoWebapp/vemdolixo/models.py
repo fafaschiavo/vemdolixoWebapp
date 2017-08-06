@@ -114,7 +114,7 @@ class company(models.Model):
 	longitude = models.DecimalField(max_digits=9, decimal_places=7)
 	is_active = models.IntegerField(default=1)
 	description = models.CharField(max_length=400)
-	created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
+	created_at = models.DateTimeField(auto_now=True)
 
 	def __organization_name__(self):
 		return self.organization_name

@@ -355,3 +355,14 @@ def great_amounts_send_email(request):
 
 	context = {}
 	return render(request, 'thanks-for-register.html', context)
+
+def deactivate_all(request):
+	companies = company.objects.all()
+	for company_item in companies:
+		print company_item.created_at
+		company_item.is_active = 0
+		company_item.save()
+	return HttpResponse(200)
+
+
+

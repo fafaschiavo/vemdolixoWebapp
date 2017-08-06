@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^about/', views.about, name='about'),
     url(r'^great-amounts/', views.great_amounts, name='great_amounts'),
     url(r'^great-amounts-send-email/', views.great_amounts_send_email, name='great_amounts_send_email'),
+    url(r'^deactivate-all/da39a3ee5e6b4b0d3255bfef95601890afd80709/', views.deactivate_all, name='deactivate_all'),
 ]
