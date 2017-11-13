@@ -164,7 +164,21 @@
     .page .title-page{
       padding-bottom: 0px;
     }
+    .dropdown-options{
+      color: black;
+    }
+    .explanation-image-container{
+      text-align: center;
+      padding-top: 5%;
+      padding-bottom: 5%;
+    }
+    .explanation-image{
+      width: 50%;
+    }
     @media (max-width: 600px) {
+      .explanation-image-container{
+        display: none;
+      }
       .input-mobile{
         text-align: left;
       }
@@ -245,12 +259,12 @@
                           <!-- <input class="mdl-textfield__input" id="residue_type" type="text" name="residue_type" placeholder="O que você precisa descartar?"> -->
                             <select name="residue_type" id="residue_type" form="new-search-form" class="mdl-textfield__input">
                                 <option value="" disabled selected>O que você precisa descartar?</option>
-                                <option value="PEQUENOS DISPOSITIVOS">Pequenos Dispositivos</option>
-                                <option value="MÉDIOS DISPOSITIVOS">Médios Dispositivos</option>
-                                <option value="GRANDES DISPOSITIVOS">Grandes Dispositivos</option>
-                                <option value="PILHAS E BATERIAS">Pilhas e Baterias</option>
-                                <option value="LÂMPADAS">Lâmpadas</option>
-                                <option value="TELEVISÕES DE TUBO">Televisões de Tubo</option>
+                                <option value="PEQUENOS DISPOSITIVOS" class="dropdown-options">Pequenos Dispositivos</option>
+                                <option value="MÉDIOS DISPOSITIVOS" class="dropdown-options">Médios Dispositivos</option>
+                                <option value="GRANDES DISPOSITIVOS" class="dropdown-options">Grandes Dispositivos</option>
+                                <option value="PILHAS E BATERIAS" class="dropdown-options">Pilhas e Baterias</option>
+                                <option value="LÂMPADAS" class="dropdown-options">Lâmpadas</option>
+                                <option value="TELEVISÕES DE TUBO" class="dropdown-options">Televisões de Tubo</option>
                             </select>
                         </div>
 
@@ -358,6 +372,10 @@
       </header><!-- end Header -->
       <!-- main body content -->
       <div class="main-body">
+
+      <div class="explanation-image-container">
+        <img class="explanation-image" src="https://s3-sa-east-1.amazonaws.com/residoando/colocar+no+site.png">
+      </div>
 
         <!-- the-team section -->
         <!-- <section id="the-team" class="page">
@@ -521,7 +539,7 @@
               <li><a href="https://www.facebook.com/Vemdolixo/" target="_blank"><i class="fa fa-facebook"></i></a></li>
               <!-- <li><a href="#" target="_blank"><i class="fa fa-google"></i></a></li> -->
               <!-- <li><a href="https://twitter.com/LixoVem" target="_blank"><i class="fa fa-twitter"></i></a></li> -->
-              <li><a href="#" target="_blank"><i class="fa fa-youtube"></i></a></li>
+              <!-- <li><a href="#" target="_blank"><i class="fa fa-youtube"></i></a></li> -->
               <!-- <li><a href="#" target="_blank"><i class="fa fa-tumblr"></i></a></li> -->
             </ul>
           </div>

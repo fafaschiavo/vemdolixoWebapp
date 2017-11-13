@@ -112,12 +112,11 @@
       </p>
 
       <!-- Simple Textfield -->
-      <form action="{% url 'simple_register_create' %}" style="width: 70%; margin: auto;" method="post" id="register-form">
-        {% csrf_token %}
+      <form action="{% url 'simple_register_create' %}" style="width: 70%; margin: auto;" method="get" id="register-form">
         <div class="mdl-textfield mdl-js-textfield">
           <input class="mdl-textfield__input dialog-input" type="email" name="contact_email" id="contact_email" placeholder="Email...">
         </div>
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="submit" id="submit-generic-registration">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="submit-generic-registration">
           Enviar
         </button>
         <div class="dialog-cancel">
@@ -243,8 +242,8 @@
 
   var content_height = $("#info-container").height();
   var section_height = $("#main-content").height();
-    if (content_height > section_height) {
-      content_height = content_height + 200
+    if (content_height + 350 > section_height) {
+      content_height = content_height + 350
       section_height = $("#main-content").height(content_height + 'px');
     }
 </script>
@@ -464,5 +463,25 @@ $(function(){ init(); });
     }, 5000);
   }
 
+</script>
+
+<script type="text/javascript">
+$( "#submit-generic-registration" ).click(function() {
+    var new_email = $( "#contact_email" ).val()
+    
+    $.ajax({
+        url: "{% url 'simple_register_create' %}",
+        data : { contact_email : new_email},
+        type: 'get',
+        success: function(data) {
+            console.log(data);
+        },
+        failure: function(data) {
+            console.log('Got an error dude');
+        }
+    });
+
+
+});
 </script>
 {% endblock %}

@@ -120,7 +120,7 @@ def about(request):
 def simple_register_create(request):
 	first_name_lower = ''
 	last_name_lower = ''
-	contact_email_lower = request.POST['contact_email']
+	contact_email_lower = request.GET['contact_email']
 	contact_email_lower = contact_email_lower.lower()
 	try:
 		new_reg = generic_register(first_name = first_name_lower, last_name = last_name_lower, email = contact_email_lower)
